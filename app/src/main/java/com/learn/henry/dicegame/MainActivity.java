@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView rollResult;
     private int score;
-    private Button rollButton;
+//    private Button rollButton;
     private Random rand;
 
     private int die1;
@@ -49,15 +49,14 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                rollDice(view);
             }
         });
 
 
         score = 0;
         rollResult = (TextView) findViewById(R.id.rollResult);
-        rollButton = (Button) findViewById(R.id.rollButton);
+//        rollButton = (Button) findViewById(R.id.rollButton);
 //        creating a toast
         Toast.makeText(getApplicationContext(), "Welcome to DiceGame", Toast.LENGTH_SHORT).show();
 
@@ -117,6 +116,18 @@ public class MainActivity extends AppCompatActivity {
             msg = "You rolled a triple " + die1 + "! You scored " + scoreDelta + " points.";
         }
         else if (die1 == die2 || die1 == die3 || die2 == die3)
+        {
+//            doubles
+            msg = "You rolled doubles. +50 pts";
+            score += 50;
+        }
+        else
+        {
+            msg = "No bonus points, try again";
+        }
+
+        rollResult.setText(msg);
+        highScore.setText("score: " + score);
     }
 
     @Override
