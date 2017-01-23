@@ -23,9 +23,48 @@
         android:text="Roll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rollResult"
+        android:layout_below="@+id/die2Image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:onClick="rollDice"
         android:id="@+id/rollButton" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/die1Image"
+        android:layout_below="@id/rollResult"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/die_1"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/die2Image"
+        android:layout_below="@id/rollResult"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/die_1"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/die3Image"
+        android:layout_below="@id/rollResult"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/die_1"/>
+
+    <TextView
+        android:text="Score: 0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/highScore"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+
 </RelativeLayout>

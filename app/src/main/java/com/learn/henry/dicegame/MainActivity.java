@@ -1,5 +1,7 @@
 package com.learn.henry.dicegame;
 
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,9 +11,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,11 +27,16 @@ public class MainActivity extends AppCompatActivity {
     private Button rollButton;
     private Random rand;
 
-    private int dieOne;
-    private int dieTwo;
-    private int dieThree;
+    private int die1;
+    private int die2;
+    private int die3;
 
+    private TextView highScore;
+
+//    arraylist to hold dice numbers
     private ArrayList<Integer> dices;
+//    arraylist to hold dice images
+    private ArrayList<ImageView> dicePics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
         score = 0;
         rollResult = (TextView) findViewById(R.id.rollResult);
         rollButton = (Button) findViewById(R.id.rollButton);
@@ -54,6 +66,15 @@ public class MainActivity extends AppCompatActivity {
 
         dices = new ArrayList<Integer>();
 
+        ImageView die1Image = (ImageView) findViewById(R.id.die1Image);
+        ImageView die2Image = (ImageView) findViewById(R.id.die2Image);
+        ImageView die3Image = (ImageView) findViewById(R.id.die3Image);
+        dicePics = new ArrayList<ImageView>();
+        dicePics.add(die1Image);
+        dicePics.add(die2Image);
+        dicePics.add(die3Image);
+
+        highScore = (TextView) findViewById(R.id.highScore);
     }
 
     public void rollDice(View v)
@@ -61,17 +82,41 @@ public class MainActivity extends AppCompatActivity {
         rollResult.setText("rolled");
 
 //        roll dice
-        dieOne = rand.nextInt(6)+1;
-        dieTwo = rand.nextInt(6)+1;
-        dieThree = rand.nextInt(6)+1;
+        die1 = rand.nextInt(6)+1;
+        die2 = rand.nextInt(6)+1;
+        die3 = rand.nextInt(6)+1;
 
         dices.clear();
-        dices.add(dieOne);
-        dices.add(dieTwo);
-        dices.add(dieThree);
+        dices.add(die1);
+        dices.add(die2);
+        dices.add(die3);
 
+        for (int i = 0; i < 3; i++)
+        {
+            String imageName = "die_" + dices.get(i) + ".png";
 
-        rollResult.setText("You rolled a " + dieOne + ", and a " + dieTwo + ", and " + dieThree);
+            try
+            {
+                InputStream stream = getAssets().open(imageName);
+                Drawable d = Drawable.createFromStream(stream, null);
+                dicePics.get(i).setImageDrawable(d);
+            }catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        rollResult.setText("You rolled a " + die1 + ", and a " + die2 + ", and " + die3);
+
+        String msg;
+
+        if (die1 == die2 && die1 == die3)
+        {
+//            triples
+            int scoreDelta = die1*100;
+            msg = "You rolled a triple " + die1 + "! You scored " + scoreDelta + " points.";
+        }
+        else if (die1 == die2 || die1 == die3 || die2 == die3)
     }
 
     @Override
